@@ -24,7 +24,6 @@ interface IUom {
     id: number;
     code: string;
     name: string;
-    
 }
 
 
