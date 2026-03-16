@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Signal } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
@@ -56,10 +56,12 @@ interface IUom {
 })
 export class AddUom implements OnInit {
     @Input() uom!: IUom;
+    @Input() uomList!: Signal<IUom[]>;
     @Input() visible = false;
     @Output() visibleChange = new EventEmitter<boolean>();
 
     submitted = false;
+    isCodeDuplicate = false;
 
     constructor(private _productService: ProductService) {}
 
@@ -67,12 +69,28 @@ export class AddUom implements OnInit {
 
     saveUom() {
         this.submitted = true;
+        this.isCodeDuplicate = false;
+
+        if (!this.uom?.code?.trim() || !this.uom?.name?.trim()) {
+            return;
+        }
+
+        const normalizedCode = this.uom.code.trim().toLowerCase();
+        this.isCodeDuplicate = this.uomList().some(
+            (item) => item.code?.trim().toLowerCase() === normalizedCode && item.id !== this.uom.id
+        );
+
+        if (this.isCodeDuplicate) {
+            return;
+        }
+
         const request$ = this._productService.saveUom(this.uom);
 
         request$.subscribe(
             () => {
                 this.visibleChange.emit(false);
                 this.submitted = false;
+                this.isCodeDuplicate = false;
             },
             (error) => {
                 console.error('Error saving uom', error);
@@ -80,8 +98,13 @@ export class AddUom implements OnInit {
         );
     }
 
+    onCodeChange() {
+        this.isCodeDuplicate = false;
+    }
+
     hideDialog() {
         this.visibleChange.emit(false);
         this.submitted = false;
+        this.isCodeDuplicate = false;
     }
 }

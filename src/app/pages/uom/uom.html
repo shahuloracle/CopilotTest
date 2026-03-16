@@ -1,4 +1,4 @@
-<app-add-uom [visible]="visible" (visibleChange)="onVisibleChange($event)" [uom]="uom"></app-add-uom>
+<app-add-uom [visible]="visible" (visibleChange)="onVisibleChange($event)" [uom]="uom" [uomList]="uomList"></app-add-uom>
 <p-toolbar>
     <ng-template #start>
         <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />

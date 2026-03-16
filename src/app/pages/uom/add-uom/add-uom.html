@@ -3,8 +3,9 @@
         <div class="flex flex-col gap-6">
             <div>
                 <label for="code" class="block font-bold mb-3">Code</label>
-                <input type="text" pInputText id="code" [(ngModel)]="uom.code" required autofocus fluid />
+                <input type="text" pInputText id="code" [(ngModel)]="uom.code" (ngModelChange)="onCodeChange()" required autofocus fluid />
                 <small class="text-red-500" *ngIf="submitted && !uom.code">Code is required.</small>
+                <small class="text-red-500" *ngIf="isCodeDuplicate">Code already exists.</small>
             </div>
             <div>
                 <label for="name" class="block font-bold mb-3">Name</label>
