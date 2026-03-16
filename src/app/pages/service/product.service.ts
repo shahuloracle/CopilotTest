@@ -19,8 +19,31 @@ export interface Product {
     rating?: number;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProductService {
+
+
+ constructor(private http: HttpClient) {}
+
+
+    getCustomers() {
+        return this.http.get<any>('http://localhost:3000/customer');
+    }
+
+    saveCustomer(customer: any) {
+        return this.http.post('http://localhost:3000/customer/add', { customers: [customer] });
+        
+    }
+
+    getUoms() {
+        return this.http.get<any>('http://localhost:3000/uom');
+    }
+
+    saveUom(uom: any) {
+        return this.http.post('http://localhost:3000/uom/add', { uoms: [uom] });
+    }
+
+
     getProductsData() {
         return [
             {
@@ -1255,7 +1278,11 @@ export class ProductService {
         'Yoga Set'
     ];
 
-    constructor(private http: HttpClient) {}
+   
+
+
+
+
 
     getProductsMini() {
         return Promise.resolve(this.getProductsData().slice(0, 5));

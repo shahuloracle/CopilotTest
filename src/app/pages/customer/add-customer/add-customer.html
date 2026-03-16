@@ -1,0 +1,30 @@
+
+
+<p-dialog [style]="{ width: '450px' }" header="Add Customer" [(visible)]="visible" [modal]="true" (onHide)="hideDialog()">
+            <ng-template #content>
+                <div class="flex flex-col gap-6">
+                    <div>
+                        <label for="name" class="block font-bold mb-3">Name</label>
+                        <input type="text" pInputText id="name" [(ngModel)]="customer.name" required autofocus fluid />
+                        <small class="text-red-500" *ngIf="submitted && !customer.name">Name is required.</small>
+                    </div>
+                    <div>
+                        <label for="address" class="block font-bold mb-3">Address</label>
+                        <input type="text" pInputText id="address" [(ngModel)]="customer.address" required fluid />
+                        <small class="text-red-500" *ngIf="submitted && !customer.address">Address is required.</small>
+                    </div>
+                    <div>
+                       <label for="phone" class="block font-bold mb-3">Phone</label>
+                       <input type="text" pInputText id="phone" [(ngModel)]="customer.phone" required fluid />
+                       <small class="text-red-500" *ngIf="submitted && !customer.phone">Phone is required.</small>
+                   </div>
+                   
+                </div>
+            </ng-template>
+
+            <ng-template #footer>
+                <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+                <p-button label="Save" icon="pi pi-check" (click)="saveCustomer()" />
+            </ng-template>
+
+        </p-dialog>

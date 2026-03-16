@@ -81,6 +81,16 @@ export class AppMenu {
                         routerLink: ['/pages/crud']
                     },
                     {
+                        label: 'Customer',
+                        icon: 'pi pi-fw pi-pencil',
+                        routerLink: ['/pages/customer']
+                    },
+                    {
+                        label: 'UOM',
+                        icon: 'pi pi-fw pi-pencil',
+                        routerLink: ['/pages/uom']
+                    },
+                    {
                         label: 'Not Found',
                         icon: 'pi pi-fw pi-exclamation-circle',
                         routerLink: ['/pages/notfound']
